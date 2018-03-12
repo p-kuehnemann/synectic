@@ -2,3 +2,5 @@ name: SkyWars
 version: 1.0
 author: NotEmpty
 main: de.phylixit.aiohub.skywars.SkyWars
+commands:
+   location:
