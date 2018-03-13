@@ -8,7 +8,6 @@ import de.phylixit.aiohub.skywars.utils.ScoreboardManager;
 import net.aiohub.utilities.utils.ItemBuilder;
 import net.aiohub.utilities.utils.ScoreboardAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,6 +1,5 @@
 package de.phylixit.aiohub.skywars.teams;
 
-import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

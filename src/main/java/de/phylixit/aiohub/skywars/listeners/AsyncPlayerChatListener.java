@@ -1,7 +1,6 @@
 package de.phylixit.aiohub.skywars.listeners;
 
 import de.phylixit.aiohub.skywars.SkyWars;
-import de.phylixit.aiohub.skywars.gamestates.LobbyState;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

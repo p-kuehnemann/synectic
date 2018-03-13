@@ -5,10 +5,7 @@ import de.phylixit.aiohub.skywars.SkyWars;
 import de.phylixit.aiohub.skywars.gamestates.InGameState;
 import de.phylixit.aiohub.skywars.gamestates.LobbyState;
 import de.phylixit.aiohub.skywars.kits.Kits;
-import de.phylixit.aiohub.skywars.teams.TeamManager;
-import de.phylixit.aiohub.skywars.teams.Teams;
 import de.phylixit.aiohub.skywars.utils.LocationManager;
-import de.phylixit.aiohub.skywars.utils.StatsManager;
 import net.aiohub.utilities.stats.StatsAPI;
 import net.aiohub.utilities.utils.*;
 import org.bukkit.*;
@@ -16,10 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scoreboard.Team;
 
 public class PlayerJoinListener implements Listener {
 

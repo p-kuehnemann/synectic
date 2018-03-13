@@ -5,7 +5,6 @@ import de.phylixit.aiohub.skywars.teams.Teams;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 
 
 public class ScoreboardManager {

@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 public class LobbyCountdown extends Countdown {
 
 	private boolean isRunning = false;
-	private int seconds = 60;
+	private int seconds = 15;
 	
 	@Override
 	public void run() {
