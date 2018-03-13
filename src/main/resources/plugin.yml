@@ -4,3 +4,4 @@ author: NotEmpty
 main: de.phylixit.aiohub.skywars.SkyWars
 commands:
    location:
+   stats:

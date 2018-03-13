@@ -2,23 +2,29 @@ package de.phylixit.aiohub.skywars.listeners;
 
 import de.dytanic.cloudnet.bridge.internal.util.ItemStackBuilder;
 import de.phylixit.aiohub.skywars.SkyWars;
+import de.phylixit.aiohub.skywars.gamestates.InGameState;
 import de.phylixit.aiohub.skywars.gamestates.LobbyState;
 import de.phylixit.aiohub.skywars.kits.Kits;
 import de.phylixit.aiohub.skywars.teams.TeamManager;
+import de.phylixit.aiohub.skywars.teams.Teams;
+import de.phylixit.aiohub.skywars.utils.LocationManager;
+import de.phylixit.aiohub.skywars.utils.StatsManager;
+import net.aiohub.utilities.stats.StatsAPI;
 import net.aiohub.utilities.utils.*;
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scoreboard.Team;
 
-public class JoinQuitKickListener implements Listener {
+public class PlayerJoinListener implements Listener {
 
 	@EventHandler
 	public void onJoinPlayer(PlayerJoinEvent playerJoinEvent) {
-
 		//if(NickAPI.getInstance().isAutoNickEnabled(playerJoinEvent.getPlayer().getUniqueId())) {
 		//	NickAPI.getInstance().autoNickPlayer(playerJoinEvent.getPlayer());
 		//}
@@ -28,16 +34,22 @@ public class JoinQuitKickListener implements Listener {
 			playerJoinEvent.getPlayer().setExp(0);
 			playerJoinEvent.getPlayer().setLevel(0);
 			playerJoinEvent.getPlayer().getInventory().clear();
+			playerJoinEvent.getPlayer().getInventory().setArmorContents(null);
 			playerJoinEvent.getPlayer().setGameMode(GameMode.SURVIVAL);
 			playerJoinEvent.getPlayer().getWorld().setDifficulty(Difficulty.EASY);
 			playerJoinEvent.getPlayer().getWorld().setStorm(false);
 			playerJoinEvent.getPlayer().getWorld().setThundering(false);
-			Location spawnLocation = new Location(Bukkit.getWorld("world"), 41.5, 157, 8.5);
-			spawnLocation.setYaw(90);
-			spawnLocation.setPitch(0);
-			playerJoinEvent.getPlayer().teleport(spawnLocation);
+
+			if(LocationManager.isLocationSet("spawn")) {
+				playerJoinEvent.getPlayer().teleport(LocationManager.getLocationConfig("spawn"));
+			} else {
+				playerJoinEvent.getPlayer().sendMessage(SkyWars.getInstance().getPrefix() + "Der Spawn wurde noch nicht gesetzt. Bitte kontaktiere einen §cManager§7.");
+				playerJoinEvent.getPlayer().teleport(Bukkit.getWorld("world").getSpawnLocation());
+			}
 
 			if (SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof LobbyState) {
+				if(!(StatsAPI.getInstance().isRegistered(playerJoinEvent.getPlayer().getUniqueId())))
+				StatsAPI.getInstance().register(playerJoinEvent.getPlayer().getUniqueId());
 
 				ScoreboardAPI.getInstance().sendScoreboard(playerJoinEvent.getPlayer(), "§6SkyWars", "§6AIOHub.net", "§1", "Map§8: ", "  §eVote-Phase", "§2", "Team§8: ","  §7Random");
 
@@ -65,47 +77,16 @@ public class JoinQuitKickListener implements Listener {
 						lobbyState.getLobbyCountdown().run();
 					}
 				}
-			} else {
+			}
+			if(SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof InGameState) {
+				playerJoinEvent.getPlayer().setGameMode(GameMode.SURVIVAL);
 				SkyWars.getInstance().spectators.add(playerJoinEvent.getPlayer());
-
 				playerJoinEvent.getPlayer().setAllowFlight(true);
 				playerJoinEvent.getPlayer().setFlying(true);
-
+				for(Player all : Bukkit.getOnlinePlayers())
+					all.hidePlayer(playerJoinEvent.getPlayer());
 				playerJoinEvent.setJoinMessage(null);
-
 				playerJoinEvent.getPlayer().sendMessage(SkyWars.getInstance().getPrefix() + "Du bist nun im Zuschauermodus.");
 			}
 		}
-	
-	@EventHandler
-	public void onQuitPlayer(PlayerQuitEvent playerQuitEvent) {
-		TeamManager.removePlayerFromTeam(playerQuitEvent.getPlayer());
-
-		if(SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof LobbyState) {
-			SkyWars.getInstance().players.remove(playerQuitEvent.getPlayer());
-			playerQuitEvent.setQuitMessage(SkyWars.getInstance().getPrefix() + "§c" + playerQuitEvent.getPlayer().getDisplayName());
-			SkyWars.getInstance().playerKits.remove(playerQuitEvent.getPlayer());
-		} else {
-			SkyWars.getInstance().spectators.remove(playerQuitEvent.getPlayer());
-			playerQuitEvent.setQuitMessage(null);
-		}
-	}
-	
-	@EventHandler
-	public void onKickPlayer(PlayerKickEvent playerKickEvent) {
-		TeamManager.removePlayerFromTeam(playerKickEvent.getPlayer());
-
-		if(SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof LobbyState) {
-			LobbyState lobbyState = (LobbyState) SkyWars.getInstance().getGameStateManager().getCurrentGameState();
-			SkyWars.getInstance().players.remove(playerKickEvent.getPlayer());
-			playerKickEvent.setLeaveMessage(SkyWars.getInstance().getPrefix() + "§c" + playerKickEvent.getPlayer().getName());
-			SkyWars.getInstance().playerKits.remove(playerKickEvent.getPlayer());
-			if(SkyWars.getInstance().players.size() < 2) {
-					lobbyState.getLobbyCountdown().cancel();
-			}
-		} else {
-			SkyWars.getInstance().spectators.remove(playerKickEvent.getPlayer());
-			playerKickEvent.setLeaveMessage(null);	
-		}
-	}
 }

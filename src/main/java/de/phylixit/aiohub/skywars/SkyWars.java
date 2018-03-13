@@ -9,15 +9,12 @@ import de.phylixit.aiohub.skywars.listeners.*;
 import net.aiohub.utilities.stats.StatsAPI;
 import net.aiohub.utilities.stats.StatsManager;
 import org.bukkit.Bukkit;
-import org.bukkit.Difficulty;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
-import static org.spigotmc.SpigotConfig.registerCommands;
 
 public class SkyWars extends JavaPlugin {
 
@@ -32,7 +29,7 @@ public class SkyWars extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		registerListeners();
-		//registerCommands();
+		registerCommands();
 
 		gameStateManager = new GameStateManager();
 		gameStateManager.setGameState(GameState.LOBBY_STATE);
@@ -40,7 +37,7 @@ public class SkyWars extends JavaPlugin {
 		statsManager = new StatsManager();
 
 		StatsAPI.getInstance().setGameMode("skywars");
-		StatsAPI.getInstance().setDefaultValues(Arrays.asList("Kills", "Deaths", "Wins", "Loses"));
+		StatsAPI.getInstance().setDefaultValues(Arrays.asList("kills", "deaths", "wins", "games"));
 	}
 
 	@Override
@@ -49,13 +46,23 @@ public class SkyWars extends JavaPlugin {
 	public static SkyWars getInstance() { return instance; }
 	public String getPrefix() { return "§8┃ §6§lSkyWars §8┃ » §7"; }
 	public GameStateManager getGameStateManager() { return gameStateManager; }
-	private void registerListeners() { 
-		Bukkit.getPluginManager().registerEvents(new JoinQuitKickListener(), this);
-		Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
-		Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
+	private void registerListeners() {
+
+
+
 		Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(), this);
-		Bukkit.getPluginManager().registerEvents(new FoodLevelChangeListener(), this);
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
+		Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(), this);
+		Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
+		Bukkit.getPluginManager().registerEvents(new EntityDamageByEntityListener(), this);
+		Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), this);
+		Bukkit.getPluginManager().registerEvents(new FoodLevelChangeListener(), this);
+		Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerKickListener(), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
+		Bukkit.getPluginManager().registerEvents(new WeatherChangeListener(), this);
+
 	}
 	private void registerCommands() {
 		getCommand("location").setExecutor(new locationsCommand());
