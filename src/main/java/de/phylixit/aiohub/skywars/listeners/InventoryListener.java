@@ -17,7 +17,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class InventoryListener implements Listener {
 
@@ -27,12 +26,12 @@ public class InventoryListener implements Listener {
 			if(playerInteractEvent.getAction().equals(Action.RIGHT_CLICK_AIR) || playerInteractEvent.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 				if(playerInteractEvent.getItem().getItemMeta().getDisplayName().equals("§6Team Auswählen")) {
 					Inventory teamsInv = Bukkit.createInventory(null, 9*3, "§6Team wechseln");
-					getTeams(teamsInv);
+					getTeamsInventory(teamsInv);
 					playerInteractEvent.getPlayer().openInventory(teamsInv);
 				}
 				if(playerInteractEvent.getItem().getItemMeta().getDisplayName().equals("§6Kit Auswählen §7<Comming Soon>")) {
 					Inventory kitsInv = playerInteractEvent.getPlayer().getServer().createInventory(null, 9, "§6Kit wählen");
-					getKits(kitsInv);
+					getKitsInventory(kitsInv);
 					playerInteractEvent.getPlayer().openInventory(kitsInv);
 				}
 				if(playerInteractEvent.getItem().getItemMeta().getDisplayName().equals("Zurück zur Lobby")) {
@@ -40,7 +39,7 @@ public class InventoryListener implements Listener {
 					playerInteractEvent.setCancelled(true);
 				}
 			}
-		}catch(Exception exception) { }
+		}catch(Exception exception) { System.out.println(); }
 	}
 
 	@EventHandler
@@ -49,40 +48,15 @@ public class InventoryListener implements Listener {
 		try{
 			if(inventoryClickEvent.getInventory().getName().equals("§6Kit wählen")) {
 				if (inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals("§aKit Starter")) {
-					inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§7Du hast das Kit §eStarter§7 gewählt!");
-					inventoryClickEvent.getWhoClicked().closeInventory();
-					SkyWars.getInstance().playerKits.remove((Player) inventoryClickEvent.getWhoClicked());
-					SkyWars.getInstance().playerKits.put((Player) inventoryClickEvent.getWhoClicked(), Kits.STARTER);
-					//TODO
-					inventoryClickEvent.setCancelled(true);
+					getKit(inventoryClickEvent, Kits.STARTER);
 				} else if (inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals("§aKit Flamara")) {
-					inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§7Du hast das Kit §eFlamara§7 gewählt!");
-					inventoryClickEvent.getWhoClicked().closeInventory();
-					SkyWars.getInstance().playerKits.remove((Player) inventoryClickEvent.getWhoClicked());
-					SkyWars.getInstance().playerKits.put((Player) inventoryClickEvent.getWhoClicked(), Kits.FLAMARA);
-					//TODO
-					inventoryClickEvent.setCancelled(true);
+					getKit(inventoryClickEvent, Kits.FLAMARA);
 				} else if (inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals("§aKit Zauberer")) {
-					inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§7Du hast das Kit §eZauberer§7 gewählt!");
-					inventoryClickEvent.getWhoClicked().closeInventory();
-					SkyWars.getInstance().playerKits.remove((Player) inventoryClickEvent.getWhoClicked());
-					SkyWars.getInstance().playerKits.put((Player) inventoryClickEvent.getWhoClicked(), Kits.ZAUBERER);
-					//TODO
-					inventoryClickEvent.setCancelled(true);
+					getKit(inventoryClickEvent, Kits.ZAUBERER);
 				} else if (inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals("§aKit Verfressen")) {
-					inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§7Du hast das Kit §eVerfressen§7 gewählt!");
-					inventoryClickEvent.getWhoClicked().closeInventory();
-					SkyWars.getInstance().playerKits.remove((Player) inventoryClickEvent.getWhoClicked());
-					SkyWars.getInstance().playerKits.put((Player) inventoryClickEvent.getWhoClicked(), Kits.VERFRESSEN);
-					//TODO
-					inventoryClickEvent.setCancelled(true);
+					getKit(inventoryClickEvent, Kits.VERFRESSEN);
 				} else if (inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals("§aKit Schwimmer")) {
-					inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§7Du hast das Kit §eSchwimmer§7 gewählt!");
-					inventoryClickEvent.getWhoClicked().closeInventory();
-					SkyWars.getInstance().playerKits.remove((Player) inventoryClickEvent.getWhoClicked());
-					SkyWars.getInstance().playerKits.put((Player) inventoryClickEvent.getWhoClicked(), Kits.SCHWIMMER);
-					//TODO
-					inventoryClickEvent.setCancelled(true);
+					getKit(inventoryClickEvent, Kits.SCHWIMMER);
 				} else {
 					inventoryClickEvent.setCancelled(true);
 				}
@@ -94,7 +68,7 @@ public class InventoryListener implements Listener {
 					if (inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals("§a" + team.getName())) {
 						if (!team.isFull()) {
 							TeamManager.setTeam((Player) inventoryClickEvent.getWhoClicked(), team);
-							getTeams(teamsInv);
+							getTeamsInventory(teamsInv);
 							inventoryClickEvent.getWhoClicked().openInventory(teamsInv);
 							inventoryClickEvent.setCancelled(true);
 
@@ -109,29 +83,19 @@ public class InventoryListener implements Listener {
 					ScoreboardManager.reload();
 					ScoreboardAPI.getInstance().sendScoreboard(player, "§6SkyWars", "§6AIOHub.net", "§1", "Map§8: ", "  §eVote-Phase", "§2", "Team§8: ", "  §a" + TeamManager.getTeam(player).getName());
 			}
-		}catch(NullPointerException nullPointerException) { }
+		}catch(NullPointerException nullPointerException) { System.out.println(); }
 	}
 	
-	private void getKits(Inventory inventory) {
-
-		ItemStack starter = new ItemBuilder(Material.STONE_PICKAXE).setDisplayname("§aKit Starter").build();
-		ItemStack flamara = new ItemBuilder(Material.GOLD_SWORD).setDisplayname("§aKit Flamara").build();
-		ItemStack zauberer = new ItemBuilder(Material.ENCHANTMENT_TABLE).setDisplayname("§aKit Zauberer").build();
-		ItemStack verfressen = new ItemBuilder(Material.GRILLED_PORK).setDisplayname("§aKit Verfressen").build();
-		ItemStack schwimmer = new ItemBuilder(Material.WATER_BUCKET).setDisplayname("§aKit Schwimmer").build();
-		ItemStack leer = new ItemBuilder(Material.STAINED_GLASS_PANE).setSubID(7).setDisplayname("§8x").build();
-
+	private void getKitsInventory(Inventory inventory) {
 		for(int i = 0; i < inventory.getSize(); i++)
-			inventory.setItem(i, leer);
-
-		inventory.setItem(0, starter);
-		inventory.setItem(2, flamara);
-		inventory.setItem(4, zauberer);
-		inventory.setItem(6, verfressen);
-		inventory.setItem(8, schwimmer);
+			inventory.setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE).setSubID(7).setDisplayname("§8x").build());
+		for(Kits kits : Kits.values()) {
+			ItemStack kitItem = new ItemBuilder(kits.getMaterial()).setDisplayname("§aKit " + kits.getName()).build();
+			inventory.setItem(kits.getItemSlot(), kitItem);
+		}
 	}
 
-	private void getTeams(Inventory inventory) {
+	private void getTeamsInventory(Inventory inventory) {
 		for(int i = 0; i < inventory.getSize(); i++)
 			inventory.setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE).setSubID(7).setDisplayname("§8x").build());
 		for(Teams team : Teams.values()) {
@@ -139,5 +103,14 @@ public class InventoryListener implements Listener {
 					.setDisplayname("§a" + team.getName()).setLore("§7" + team.getPlayers().size() + "§8/§71").build();
 			inventory.setItem(team.getItemSlot(), teamItem);
 		}
+	}
+
+	private void getKit(InventoryClickEvent inventoryClickEvent, Kits kits) {
+		inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§7Du hast das Kit §e" + kits.getName() +"§7 gewählt!");
+		inventoryClickEvent.getWhoClicked().closeInventory();
+		SkyWars.getInstance().playerKits.remove(inventoryClickEvent.getWhoClicked());
+		SkyWars.getInstance().playerKits.put((Player) inventoryClickEvent.getWhoClicked(), kits);
+		//TODO: Buying, Description
+		inventoryClickEvent.setCancelled(true);
 	}
 }

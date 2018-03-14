@@ -18,9 +18,8 @@ public class PlayerKickListener implements Listener {
             SkyWars.getInstance().players.remove(playerKickEvent.getPlayer());
             playerKickEvent.setLeaveMessage(SkyWars.getInstance().getPrefix() + "§c" + playerKickEvent.getPlayer().getName());
             SkyWars.getInstance().playerKits.remove(playerKickEvent.getPlayer());
-            if(SkyWars.getInstance().players.size() < 2) {
+            if(SkyWars.getInstance().players.size() < 2)
                 lobbyState.getLobbyCountdown().cancel();
-            }
         } else {
             SkyWars.getInstance().spectators.remove(playerKickEvent.getPlayer());
             playerKickEvent.setLeaveMessage(null);

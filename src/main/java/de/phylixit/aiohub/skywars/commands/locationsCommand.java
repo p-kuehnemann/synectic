@@ -1,5 +1,6 @@
 package de.phylixit.aiohub.skywars.commands;
 
+import de.phylixit.aiohub.skywars.SkyWars;
 import de.phylixit.aiohub.skywars.utils.LocationManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,6 +26,7 @@ public class locationsCommand implements CommandExecutor {
                     if (strings[0].equalsIgnoreCase("set")) {
                         String name = strings[1];
                         LocationManager.setLocation(name, player.getLocation());
+                        player.sendMessage(SkyWars.getInstance().getPrefix() + "§7Die Location '§e" + name + "§7' wurde gesetzt.");
                         return true;
                     }
             }

@@ -15,19 +15,13 @@ public class LobbyCountdown extends Countdown {
 		taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(SkyWars.getInstance(), new Runnable() {
 			@Override
 			public void run() {
-				switch(seconds) {
-				case 60: case 30: case 15: case 10: case 5: case 4: case 3: case 2:
-					Bukkit.broadcastMessage(SkyWars.getInstance().getPrefix() + "Das Spiel startet in §e" + seconds + "§7 Sekunden.");
-					break;
-				case 1:
-					Bukkit.broadcastMessage(SkyWars.getInstance().getPrefix() + "Das Spiel startet in §eeiner§7 Sekunde.");
-					break;
-				case 0:
-					SkyWars.getInstance().getGameStateManager().setGameState(GameState.INGAME_STATE);
-					break;
-				default:
-					break;
-				}
+					if(seconds == 60 || seconds == 30 || seconds == 15 || seconds == 10 || seconds == 5 || seconds == 4 || seconds == 3 || seconds == 2) {
+						Bukkit.broadcastMessage(SkyWars.getInstance().getPrefix() + "Das Spiel startet in §e" + seconds + "§7 Sekunden.");
+					} else if(seconds == 1) {
+						Bukkit.broadcastMessage(SkyWars.getInstance().getPrefix() + "Das Spiel startet in §eeiner§7 Sekunde.");
+					} else if(seconds == 0) {
+						SkyWars.getInstance().getGameStateManager().setGameState(GameState.INGAME_STATE);
+					}
 				seconds--;
 			}
 		}, 0, 20);
@@ -37,7 +31,8 @@ public class LobbyCountdown extends Countdown {
 	public void cancel() {
 		isRunning = false;
 		Bukkit.getScheduler().cancelTask(taskID);
-		seconds = 15;
+		if(seconds <= 15)
+			seconds = 15;
 	}
 	public boolean isRunning() { return isRunning; }
 }

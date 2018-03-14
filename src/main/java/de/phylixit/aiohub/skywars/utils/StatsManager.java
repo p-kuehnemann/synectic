@@ -22,7 +22,7 @@ public class StatsManager {
     public static double getKD(Player player) {
         int kills = getKills(player);
         int deaths = getDeaths(player);
-        double kdRaw = Double.valueOf(kills) / Double.valueOf(deaths);
+        double kdRaw = (double) kills / (double) deaths;
         DecimalFormat kd = new DecimalFormat("#.##");
         if(deaths == 0)
             kdRaw = kills;
@@ -41,7 +41,7 @@ public class StatsManager {
     public static double getKD(OfflinePlayer player) {
         int kills = getKills(player);
         int deaths = getDeaths(player);
-        double kdRaw = Double.valueOf(kills) / Double.valueOf(deaths);
+        double kdRaw = (double) kills / (double) deaths;
         DecimalFormat kd = new DecimalFormat("#.##");
         if(deaths == 0)
             kdRaw = kills;

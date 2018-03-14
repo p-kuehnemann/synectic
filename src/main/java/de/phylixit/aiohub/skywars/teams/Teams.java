@@ -15,14 +15,6 @@ public enum Teams
     T6("Team-6", "§aT6 §8┃ §7", new ArrayList<>(), "06t6", "spawn_t6", 14),
     T7("Team-7", "§aT7 §8┃ §7", new ArrayList<>(), "07t7", "spawn_t7", 15),
     T8("Team-8", "§aT8 §8┃ §7", new ArrayList<>(), "08t8", "spawn_t8", 16);
-    //T9("Team-9", "§aT9 §8┃ §7", new ArrayList<>(), "09t9", "spawn_t9", 17);
-    //T10("Team-10", "§aT10 §8┃ §7", new ArrayList<>(), "10t10", "spawn_t10", 18),
-    //T11("Team-11", "§aT11 §8┃ §7", new ArrayList<>(), "11t11", "spawn_t11", 19),
-    //T12("Team-12", "§aT12 §8┃ §7", new ArrayList<>(), "12t12", "spawn_t12", 20),
-    //T13("Team-13", "§aT13 §8┃ §7", new ArrayList<>(), "13t13", "spawn_t13", 21),
-    //T14("Team-14", "§aT14 §8┃ §7", new ArrayList<>(), "14t14", "spawn_t14", 22),
-    //T15("Team-15", "§aT15 §8┃ §7", new ArrayList<>(), "15t15", "spawn_t15", 23),
-    //T16("Team-16", "§aT16 §8┃ §7", new ArrayList<>(), "16t16", "spawn_t16", 24);
 
     private String name;
     private String prefix;
@@ -30,13 +22,8 @@ public enum Teams
     private String scoreboardName;
     private String spawnLocationName;
     private int itemSlot;
-    private double x;
-    private double y;
-    private double z;
-    private int yaw;
-    private int pitch;
 
-    private Teams(String name, String prefix, List players, String scoreboardName, String spawnLocationName, int itemSlot){
+    Teams(String name, String prefix, List players, String scoreboardName, String spawnLocationName, int itemSlot){
         this.name = name;
         this.prefix = prefix;
         this.players = players;
@@ -50,6 +37,16 @@ public enum Teams
     public String getScoreboardName() { return scoreboardName; }
     public String getSpawnLocationName() { return spawnLocationName; }
     public int getItemSlot() { return itemSlot; }
-    public List<Player> getPlayers() { return players;}
+    public List<Player> getPlayers() { return players; }
     public boolean isFull() { return getPlayers().size() >= 1; }
 }
+/*
+    T9("Team-9", "§aT9 §8┃ §7", new ArrayList<>(), "09t9", "spawn_t9", 17);
+    T10("Team-10", "§aT10 §8┃ §7", new ArrayList<>(), "10t10", "spawn_t10", 18),
+    T11("Team-11", "§aT11 §8┃ §7", new ArrayList<>(), "11t11", "spawn_t11", 19),
+    T12("Team-12", "§aT12 §8┃ §7", new ArrayList<>(), "12t12", "spawn_t12", 20),
+    T13("Team-13", "§aT13 §8┃ §7", new ArrayList<>(), "13t13", "spawn_t13", 21),
+    T14("Team-14", "§aT14 §8┃ §7", new ArrayList<>(), "14t14", "spawn_t14", 22),
+    T15("Team-15", "§aT15 §8┃ §7", new ArrayList<>(), "15t15", "spawn_t15", 23),
+    T16("Team-16", "§aT16 §8┃ §7", new ArrayList<>(), "16t16", "spawn_t16", 24);
+    */

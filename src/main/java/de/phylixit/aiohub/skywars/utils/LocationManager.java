@@ -7,11 +7,8 @@ import org.bukkit.World;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LocationManager {
-    private static Map<String, Location> locations = new HashMap<>();
     private static File file = new File("plugins/skywars", "locations.yml");
     private static YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(file);
 
@@ -25,7 +22,6 @@ public class LocationManager {
         try { yamlConfiguration.save(file); } catch (IOException e) { e.printStackTrace(); }
     }
     public static boolean isLocationSet(String locationName) { return yamlConfiguration.contains(locationName); }
-    public static Location getLocation(String name) { return locations.get(name); }
     public static Location getLocationConfig(String name) {
         World world = Bukkit.getWorld(yamlConfiguration.getString(name.toLowerCase() + ".World"));
         double x = yamlConfiguration.getDouble(name.toLowerCase() + ".X");
@@ -39,3 +35,4 @@ public class LocationManager {
         return location;
     }
 }
+//public static Location getLocation(String name) { return locations.get(name); }

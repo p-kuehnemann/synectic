@@ -19,9 +19,6 @@ public class PlayerJoinListener implements Listener {
 
 	@EventHandler
 	public void onJoinPlayer(PlayerJoinEvent playerJoinEvent) {
-		//if(NickAPI.getInstance().isAutoNickEnabled(playerJoinEvent.getPlayer().getUniqueId())) {
-		//	NickAPI.getInstance().autoNickPlayer(playerJoinEvent.getPlayer());
-		//}
 			playerJoinEvent.getPlayer().setHealth(20);
 			playerJoinEvent.getPlayer().setFoodLevel(20);
 			playerJoinEvent.getPlayer().setFireTicks(0);
@@ -67,9 +64,8 @@ public class PlayerJoinListener implements Listener {
 				SkyWars.getInstance().playerKits.put(playerJoinEvent.getPlayer(), Kits.STARTER);
 
 				if (SkyWars.getInstance().players.size() >= 2) {
-					if (!lobbyState.getLobbyCountdown().isRunning()) {
+					if (!lobbyState.getLobbyCountdown().isRunning())
 						lobbyState.getLobbyCountdown().run();
-					}
 				}
 			}
 			if(SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof InGameState) {
@@ -82,5 +78,9 @@ public class PlayerJoinListener implements Listener {
 				playerJoinEvent.setJoinMessage(null);
 				playerJoinEvent.getPlayer().sendMessage(SkyWars.getInstance().getPrefix() + "Du bist nun im Zuschauermodus.");
 			}
-		}
+	}
 }
+/*
+	if(NickAPI.getInstance().isAutoNickEnabled(playerJoinEvent.getPlayer().getUniqueId()))
+		NickAPI.getInstance().autoNickPlayer(playerJoinEvent.getPlayer());
+ */

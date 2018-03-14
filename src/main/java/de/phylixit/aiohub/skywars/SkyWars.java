@@ -7,7 +7,6 @@ import de.phylixit.aiohub.skywars.gamestates.GameStateManager;
 import de.phylixit.aiohub.skywars.kits.Kits;
 import de.phylixit.aiohub.skywars.listeners.*;
 import net.aiohub.utilities.stats.StatsAPI;
-import net.aiohub.utilities.stats.StatsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +19,6 @@ public class SkyWars extends JavaPlugin {
 
 	private static SkyWars instance;
 	private GameStateManager gameStateManager;
-	public static StatsManager statsManager;
 	public HashMap<Player, Kits> playerKits = new HashMap<>();
 	public ArrayList<Player> players = new ArrayList<>();
 	public ArrayList<Player> spectators = new ArrayList<>();
@@ -34,8 +32,6 @@ public class SkyWars extends JavaPlugin {
 		gameStateManager = new GameStateManager();
 		gameStateManager.setGameState(GameState.LOBBY_STATE);
 
-		statsManager = new StatsManager();
-
 		StatsAPI.getInstance().setGameMode("skywars");
 		StatsAPI.getInstance().setDefaultValues(Arrays.asList("kills", "deaths", "wins", "games"));
 	}
@@ -47,9 +43,6 @@ public class SkyWars extends JavaPlugin {
 	public String getPrefix() { return "§8┃ §6§lSkyWars §8┃ » §7"; }
 	public GameStateManager getGameStateManager() { return gameStateManager; }
 	private void registerListeners() {
-
-
-
 		Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(), this);
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
 		Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(), this);
@@ -62,7 +55,6 @@ public class SkyWars extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new PlayerKickListener(), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
 		Bukkit.getPluginManager().registerEvents(new WeatherChangeListener(), this);
-
 	}
 	private void registerCommands() {
 		getCommand("location").setExecutor(new locationsCommand());

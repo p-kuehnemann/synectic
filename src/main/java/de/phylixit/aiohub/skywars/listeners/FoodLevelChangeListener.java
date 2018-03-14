@@ -11,9 +11,8 @@ public class FoodLevelChangeListener implements Listener {
     public void onFoodLevelChange(FoodLevelChangeEvent foodLevelChangeEvent) {
         if (!(SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof InGameState)) {
             foodLevelChangeEvent.setCancelled(true);
-            if(foodLevelChangeEvent.getFoodLevel() <= 19) {
+            if(foodLevelChangeEvent.getFoodLevel() <= 19)
                 foodLevelChangeEvent.setFoodLevel(20);
-            }
         }
     }
 }

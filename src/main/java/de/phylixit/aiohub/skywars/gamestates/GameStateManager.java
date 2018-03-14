@@ -15,6 +15,6 @@ public class GameStateManager {
 		currentGameState = gameStates[newGameState];
 		currentGameState.start();
 	}
-	public void stopCurrentGameState() { currentGameState.stop(); currentGameState = null; }
+	//public void stopCurrentGameState() { currentGameState.stop(); currentGameState = null; }
 	public GameState getCurrentGameState() { return currentGameState; }
 }
