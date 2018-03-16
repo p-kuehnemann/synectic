@@ -1,15 +1,18 @@
 package de.phylixit.aiohub.skywars.teams;
 
+import de.phylixit.aiohub.skywars.SkyWars;
+import de.phylixit.aiohub.skywars.kits.KitManager;
+import de.phylixit.aiohub.skywars.kits.Kits;
 import de.phylixit.aiohub.skywars.utils.LocationManager;
 import de.phylixit.aiohub.skywars.utils.StatsManager;
 import net.aiohub.utilities.utils.ScoreboardAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TeamManager {
-
     private static Map<Player, Teams> playerTeams = new HashMap<>();
 
     public static void setTeam(Player player, Teams team) {
@@ -43,6 +46,7 @@ public class TeamManager {
                player.getInventory().setArmorContents(null);
                ScoreboardAPI.getInstance().sendScoreboard(player, "§6SkyWars", "§6AIOHub.net", "§1", "Map§8: ", "  §cInvaild", "§2", "Team§8: ","  §a" + TeamManager.getTeam(player).getName());
                player.teleport(LocationManager.getLocationConfig(teams.getSpawnLocationName()));
+               KitManager.getKit(Kits.FLAMARA.getName(), player);
                StatsManager.addGamePlayed(player);
            }
        }

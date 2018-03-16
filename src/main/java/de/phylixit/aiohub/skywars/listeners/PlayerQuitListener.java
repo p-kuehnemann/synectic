@@ -3,14 +3,15 @@ package de.phylixit.aiohub.skywars.listeners;
 import de.phylixit.aiohub.skywars.SkyWars;
 import de.phylixit.aiohub.skywars.gamestates.LobbyState;
 import de.phylixit.aiohub.skywars.teams.TeamManager;
+import de.phylixit.aiohub.skywars.utils.ScoreboardManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitListener implements Listener{
-
     @EventHandler
     public void onQuitPlayer(PlayerQuitEvent playerQuitEvent) {
+        ScoreboardManager.reload();
         TeamManager.removePlayerFromTeam(playerQuitEvent.getPlayer());
 
         if(SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof LobbyState) {

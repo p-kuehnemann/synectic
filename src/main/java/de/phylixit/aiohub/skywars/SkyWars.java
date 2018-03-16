@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class SkyWars extends JavaPlugin {
-
 	private static SkyWars instance;
 	private GameStateManager gameStateManager;
 	public HashMap<Player, Kits> playerKits = new HashMap<>();

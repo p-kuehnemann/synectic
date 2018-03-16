@@ -71,8 +71,8 @@ public class InventoryListener implements Listener {
 							getTeamsInventory(teamsInv);
 							inventoryClickEvent.getWhoClicked().openInventory(teamsInv);
 							inventoryClickEvent.setCancelled(true);
-
-						} else {
+							ScoreboardManager.reload();
+							} else {
 							inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§cDieses Team ist bereits voll!");
 							inventoryClickEvent.setCancelled(true);
 						}
@@ -80,12 +80,9 @@ public class InventoryListener implements Listener {
 						inventoryClickEvent.setCancelled(true);
 					}
 				}
-					ScoreboardManager.reload();
-					ScoreboardAPI.getInstance().sendScoreboard(player, "§6SkyWars", "§6AIOHub.net", "§1", "Map§8: ", "  §eVote-Phase", "§2", "Team§8: ", "  §a" + TeamManager.getTeam(player).getName());
 			}
 		}catch(NullPointerException nullPointerException) { System.out.println(); }
 	}
-	
 	private void getKitsInventory(Inventory inventory) {
 		for(int i = 0; i < inventory.getSize(); i++)
 			inventory.setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE).setSubID(7).setDisplayname("§8x").build());
@@ -94,7 +91,6 @@ public class InventoryListener implements Listener {
 			inventory.setItem(kits.getItemSlot(), kitItem);
 		}
 	}
-
 	private void getTeamsInventory(Inventory inventory) {
 		for(int i = 0; i < inventory.getSize(); i++)
 			inventory.setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE).setSubID(7).setDisplayname("§8x").build());
@@ -104,7 +100,6 @@ public class InventoryListener implements Listener {
 			inventory.setItem(team.getItemSlot(), teamItem);
 		}
 	}
-
 	private void getKit(InventoryClickEvent inventoryClickEvent, Kits kits) {
 		inventoryClickEvent.getWhoClicked().sendMessage(SkyWars.getInstance().getPrefix() + "§7Du hast das Kit §e" + kits.getName() +"§7 gewählt!");
 		inventoryClickEvent.getWhoClicked().closeInventory();

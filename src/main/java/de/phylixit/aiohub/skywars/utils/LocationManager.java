@@ -21,6 +21,7 @@ public class LocationManager {
         yamlConfiguration.set(name + ".Pitch", location.getPitch());
         try { yamlConfiguration.save(file); } catch (IOException e) { e.printStackTrace(); }
     }
+
     public static boolean isLocationSet(String locationName) { return yamlConfiguration.contains(locationName); }
     public static Location getLocationConfig(String name) {
         World world = Bukkit.getWorld(yamlConfiguration.getString(name.toLowerCase() + ".World"));

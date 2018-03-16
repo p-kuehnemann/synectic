@@ -12,5 +12,4 @@ public class RestartingState extends GameState {
 
 	@Override
 	public void stop() {}
-
 }

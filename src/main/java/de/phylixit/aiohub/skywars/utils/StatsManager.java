@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import java.text.DecimalFormat;
 
 public class StatsManager {
-
     public static void addKill(Player player) { StatsAPI.getInstance().addValueToKey(player.getUniqueId(), "kills" , 1); }
     public static void addDeath(Player player) { StatsAPI.getInstance().addValueToKey(player.getUniqueId(), "deaths" , 1); }
     public static void addWin(Player player) {

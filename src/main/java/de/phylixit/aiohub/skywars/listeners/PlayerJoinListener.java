@@ -6,6 +6,7 @@ import de.phylixit.aiohub.skywars.gamestates.InGameState;
 import de.phylixit.aiohub.skywars.gamestates.LobbyState;
 import de.phylixit.aiohub.skywars.kits.Kits;
 import de.phylixit.aiohub.skywars.utils.LocationManager;
+import de.phylixit.aiohub.skywars.utils.ScoreboardManager;
 import net.aiohub.utilities.stats.StatsAPI;
 import net.aiohub.utilities.utils.*;
 import org.bukkit.*;
@@ -50,7 +51,6 @@ public class PlayerJoinListener implements Listener {
 
 				playerJoinEvent.getPlayer().setAllowFlight(false);
 				playerJoinEvent.getPlayer().setFlying(false);
-
 				playerJoinEvent.setJoinMessage(SkyWars.getInstance().getPrefix() + "§a" + playerJoinEvent.getPlayer().getDisplayName());
 
 				ItemStack teams = ItemStackBuilder.builder(Material.NETHER_STAR).displayName("§6Team Auswählen").build();

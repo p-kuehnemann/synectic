@@ -4,8 +4,8 @@ import de.phylixit.aiohub.skywars.teams.TeamManager;
 import de.phylixit.aiohub.skywars.teams.Teams;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
-
 
 public class ScoreboardManager {
     private static Scoreboard scoreboard;

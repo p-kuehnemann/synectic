@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class EntityDamageByEntityListener implements Listener {
-
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent entityEvent) {
         if(entityEvent.getEntity() instanceof Player && entityEvent.getDamager() instanceof  Player) {

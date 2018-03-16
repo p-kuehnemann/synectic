@@ -5,8 +5,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Teams
-{
+public enum Teams {
     T1("Team-1", "§aT1 §8┃ §7", new ArrayList<>(), "01t1", "spawn_t1", 9),
     T2("Team-2", "§aT2 §8┃ §7", new ArrayList<>(), "02t2", "spawn_t2", 10),
     T3("Team-3", "§aT3 §8┃ §7", new ArrayList<>(), "03t3", "spawn_t3", 11),

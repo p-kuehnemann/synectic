@@ -34,6 +34,4 @@ public class locationsCommand implements CommandExecutor {
         return false;
     }
 }
-/*
-    PERMISSIONS EINFÜGEN!!!!!
- */
+//PERMISSIONS EINFÜGEN!!!!!

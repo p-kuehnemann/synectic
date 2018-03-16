@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathListener implements Listener {
-
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent playerDeathEvent) {
         playerDeathEvent.setDeathMessage(null);

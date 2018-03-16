@@ -49,7 +49,6 @@ public class statsCommand implements CommandExecutor {
         }
         return false;
     }
-
     private void getStats(Player sendPlayer, Player targetPlayer){
         sendPlayer.sendMessage("§7Kills§8: §e" + StatsManager.getKills(targetPlayer));
         sendPlayer.sendMessage("§7Tode§8: §e" + StatsManager.getDeaths(targetPlayer));

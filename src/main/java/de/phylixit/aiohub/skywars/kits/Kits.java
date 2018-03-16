@@ -2,8 +2,7 @@ package de.phylixit.aiohub.skywars.kits;
 
 import org.bukkit.Material;
 
-public enum Kits
-{
+public enum Kits {
 	STARTER("Starter", Material.STONE_PICKAXE, 0),
 	FLAMARA("Flamara", Material.GOLD_SWORD, 2),
 	ZAUBERER("Zauberer", Material.ENCHANTMENT_TABLE, 4),

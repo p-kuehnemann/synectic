@@ -21,7 +21,7 @@ public class RestartingCountdown extends Countdown{
                         all.kickPlayer(null);
                     Bukkit.spigot().restart();
                 }
-                seconds--;
+                 seconds--;
             }
         }, 0, 20);
     }

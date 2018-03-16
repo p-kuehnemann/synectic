@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityDamageListener implements Listener {
-
     @EventHandler
     public void onEntityDamage(EntityDamageEvent damageEvent) {
         if(SkyWars.getInstance().getGameStateManager().getCurrentGameState() instanceof LobbyState ||

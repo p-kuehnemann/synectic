@@ -10,6 +10,5 @@ public class InGameState extends GameState {
 	}
 
 	@Override
-	public void stop() {
-	}
+	public void stop() { }
 }
